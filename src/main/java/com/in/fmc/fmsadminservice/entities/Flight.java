@@ -26,7 +26,7 @@ public class Flight {
 
 	private String flightNumber;
 
-	private String flightName;
+	private String flightAirlineName;
 
 	private String flightFare;
 
@@ -38,7 +38,5 @@ public class Flight {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "flight", orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Passenger> passengers = new ArrayList<>();
-
-	
 
 }
