@@ -26,7 +26,7 @@ public class Flight {
 
 	private String flightNumber;
 
-	private String flightName;
+	private String flightAirlineName;
 
 	private String flightFare;
 

@@ -24,5 +24,5 @@ public class FlightRouteDto {
 
 	@NotNull(message = ValidationConstants.INVALID_FLIGHT_STOPS_MSG)
 	@JsonProperty(value = "stops", index = 2, required = true)
-	private List<FlightStopDto> flightStops = new ArrayList<>();
+	private List<FlightStopDto> flightStopDtos = new ArrayList<>();
 }
