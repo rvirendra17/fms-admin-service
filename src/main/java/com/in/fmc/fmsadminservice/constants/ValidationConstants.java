@@ -2,7 +2,7 @@ package com.in.fmc.fmsadminservice.constants;
 
 public class ValidationConstants {
 
-	public static final String INVALID_FLIGHT_MSG = "flight";
+	public static final String INVALID_FLIGHT_MSG = "flight data";
 
 	public static final String INVALID_FLIGHT_NUMBER_MSG = "number";
 	public static final String INVALID_FLIGHT_NAME_MSG = "airline";

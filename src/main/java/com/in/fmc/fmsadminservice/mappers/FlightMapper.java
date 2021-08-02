@@ -34,4 +34,6 @@ public abstract interface FlightMapper {
 
 	List<Passenger> mapToPassengers(List<PassengerDto> passengerDtos);
 
+	List<Flight> mapToFlights(List<FlightDto> flightDtos);
+
 }

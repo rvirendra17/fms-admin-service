@@ -1,40 +1,38 @@
-{
-	"flight": {
-		"number": "I5-744",
-		"airline": "AirAsia",
-		"fare": "6000",
-		"route": {
-			"source": "Pune",
-			"destination": "Srinagar",
-			"stops": [
-				{
-					"number": 1,
-					"city": "Indore"
-				},
-				{
-					"number": 2,
-					"city": "Delhi"
-				}
-			]
-		},
-		"schedule": {
-			"departure_date": "2021-08-15",
-			"departure_time": "09:25 hrs",
-			"arrival_date": "2021-08-15",
-			"arrival_time": "11:25 hrs",
-			"duration": "02:00 hrs"
-		},
-		"passengers": [
+ {
+	"number": "I5-744",
+	"airline": "AirAsia",
+	"fare": "6000",
+	"route": {
+		"source": "Pune",
+		"destination": "Srinagar",
+		"stops": [
 			{
-				"name": "Virendrasingh Rajput",
-				"email": "virendrarajput1988@gmail.com",
-				"mobile": "7767015674"
+				"number": 1,
+				"city": "Indore"
 			},
 			{
-				"name": "Prarabdh Chauhan",
-				"email": "chauhan.prarabdh@gmail.com",
-				"mobile": "9860415773"
+				"number": 2,
+				"city": "Delhi"
 			}
 		]
-	}
+	},
+	"schedule ": {
+		"departure_date": "2021-08-15",
+		"departure_time": "09:25 hrs",
+		"arrival_date": "2021-08-15",
+		"arrival_time": "11:25 hrs",
+		"duration": "02:00 hrs"
+	},
+	"passengers": [
+		{
+			"name": "Virendrasingh Rajput",
+			"email": "virendrarajput1988@gmail.com",
+			"mobile": "7767015674"
+		},
+		{
+			"name": "Prarabdh Chauhan",
+			"email": "chauhan.prarabdh@gmail.com",
+			"mobile": "9860415773"
+		}
+	]
 }
