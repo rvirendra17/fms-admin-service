@@ -1,7 +1,9 @@
 package com.in.fmc.fmsadminservice.models;
 
+import java.util.List;
+
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.in.fmc.fmsadminservice.constants.ValidationConstants;
@@ -13,7 +15,7 @@ import lombok.Data;
 public class FlightData {
 
 	@Valid
-	@NotNull(message = ValidationConstants.INVALID_FLIGHT_MSG)
-	@JsonProperty(value = "flight", required = true)
-	private FlightDto flightDto;
+	@NotEmpty(message = ValidationConstants.INVALID_FLIGHT_MSG)
+	@JsonProperty(value = "flights", required = true)
+	private List<FlightDto> flightDtos;
 }
