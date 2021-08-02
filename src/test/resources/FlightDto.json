@@ -7,16 +7,16 @@
 		"destination": "Srinagar",
 		"stops": [
 			{
-				"number": 1,
+				"stop_number": 1,
 				"city": "Indore"
 			},
 			{
-				"number": 2,
+				"stop_number": 2,
 				"city": "Delhi"
 			}
 		]
 	},
-	"schedule ": {
+	"schedule": {
 		"departure_date": "2021-08-15",
 		"departure_time": "09:25 hrs",
 		"arrival_date": "2021-08-15",

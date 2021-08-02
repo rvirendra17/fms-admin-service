@@ -18,6 +18,8 @@ public class ValidationConstants {
 	public static final String INVALID_FLIGHT_SOURCE_MSG = "source";
 	public static final String INVALID_FLIGHT_DESTINATION_MSG = "destination";
 	public static final String INVALID_FLIGHT_STOPS_MSG = "stops";
+	public static final String INVALID_FLIGHT_STOPS_CITY_MSG="stop city";
+	public static final String INVALID_FLIGHT_STOPS_NUMBER_MSG="number of stops";
 	public static final String INVALID_FLIGHT_PASSENGER_EMAIL_MSG = "passenger email";
 	public static final String INVALID_FLIGHT_PASSENGER_NAME_MSG = "passenger name";
 	public static final String INVALID_FLIGHT_PASSENGER_MOBILE_MSG = "passenger mobile number";
