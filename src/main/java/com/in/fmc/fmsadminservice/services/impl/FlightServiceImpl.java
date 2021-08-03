@@ -10,7 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.in.fmc.fmsadminservice.constants.Constants;
+import com.in.fmc.fmsadminservice.constants.ErrorConstants;
 import com.in.fmc.fmsadminservice.entities.Flight;
+import com.in.fmc.fmsadminservice.exceptions.FlightsExistException;
 import com.in.fmc.fmsadminservice.repositories.FlightRepository;
 import com.in.fmc.fmsadminservice.services.FlightService;
 
@@ -41,16 +44,17 @@ public class FlightServiceImpl implements FlightService {
 			if (flightsToAdd != null && flightsToAdd.size() > 0) {
 
 				saveFlights(flightsToAdd);
-				return new ResponseEntity<String>("Warning - Flights added except - " + existingFlightNumbers,
+				return new ResponseEntity<String>(Constants.FLIGHTS_ADDED_WITH_WARNING + existingFlightNumbers,
 						HttpStatus.CREATED);
 			} else if (flightsToAdd != null && flightsToAdd.isEmpty()) {
-				return new ResponseEntity<String>("Flights already added", HttpStatus.NOT_ACCEPTABLE);
+
+				throw new FlightsExistException(ErrorConstants.FLIGHTS_EXIST_EXCEPTION_MSG);
 			}
 
 		}
 
 		saveFlights(flights);
-		return new ResponseEntity<String>("Flights added succesfully", HttpStatus.CREATED);
+		return new ResponseEntity<String>(Constants.FLIGHTS_ADDED_SUCCESSFULLY, HttpStatus.CREATED);
 	}
 
 	private List<Flight> getExistingFlights(Collection<Flight> flights) {
