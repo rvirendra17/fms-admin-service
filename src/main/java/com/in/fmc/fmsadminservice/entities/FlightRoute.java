@@ -31,8 +31,8 @@ public class FlightRoute {
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "flightRoute", orphanRemoval = true)
 	private List<FlightStop> flightStops = new ArrayList<>();
-	
+
 	@OneToOne
-	@JoinColumn(nullable=false,name="fk_flightId")
+	@JoinColumn(nullable = false, name = "fk_flightId")
 	private Flight flight;
 }
