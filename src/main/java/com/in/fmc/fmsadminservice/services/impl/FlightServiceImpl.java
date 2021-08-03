@@ -61,14 +61,6 @@ public class FlightServiceImpl implements FlightService {
 				.filter(flight -> flight != null).collect(Collectors.toList());
 	}
 
-	/**
-	 * @author -Virendra
-	 * @param - List<Flights>
-	 * @Details - Sets parent entities to children entities and save all entities to
-	 *          DB
-	 * 
-	 */
-
 	private List<Flight> getFlightsToAdd(List<Flight> existingFlights, Collection<Flight> flights) {
 
 		Set<String> existingFlightNumbers = existingFlights.stream().map(flight -> flight.getFlightNumber())
@@ -81,6 +73,14 @@ public class FlightServiceImpl implements FlightService {
 				.collect(Collectors.toList());
 
 	}
+
+	/**
+	 * @author -Virendra
+	 * @param - List<Flights>
+	 * @Details - Sets parent entities to children entities and save all entities to
+	 *          DB
+	 * 
+	 */
 
 	private void saveFlights(Collection<Flight> flights) {
 
