@@ -1,0 +1,76 @@
+{
+    "flights": [
+        {
+            "number": "I5-744",
+            "airline": "AirAsia",
+            "fare": "6000",
+            "route": {
+                "source": "Pune",
+                "destination": "Srinagar",
+                "stops": [
+                    {
+                        "stop_number": 1,
+                        "city": "Indore"
+                    },
+                    {
+                        "stop_number": 2,
+                        "city": "Delhi"
+                    }
+                ]
+            },
+            "schedule": {
+                "departure_date": "2021-08-15",
+                "departure_time": "09:25 hrs",
+                "arrival_date": "2021-08-15",
+                "arrival_time": "11:25 hrs",
+                "duration": "02:00 hrs"
+            },
+            "passengers": [
+                {
+                    "name": "Virendrasingh Rajput",
+                    "email": "virendrarajput1988@gmail.com",
+                    "mobile": "7767015674"
+                },
+                {
+                    "name": "Prarabdh Chauhan",
+                    "email": "chauhan.prarabdh@gmail.com",
+                    "mobile": "9860415773"
+                }
+            ]
+        },
+         {
+            "number": "IG-172",
+            "airline": "Indigo",
+            "fare": "9000",
+            "route": {
+                "source": "Nagpur",
+                "destination": "Banglore",
+                "stops": [
+                    {
+                        "stop_number": 1,
+                        "city": "Hyderabad"
+                    }
+                ]
+            },
+            "schedule": {
+                "departure_date": "2021-08-31",
+                "departure_time": "18:25 hrs",
+                "arrival_date": "2021-08-31",
+                "arrival_time": "19:55 hrs",
+                "duration": "01:30 hrs"
+            },
+            "passengers": [
+                {
+                    "name": "Virendrasingh Rajput",
+                    "email": "virendrarajput1988@gmail.com",
+                    "mobile": "7767015674"
+                },
+                {
+                    "name": "Prarabdh Chauhan",
+                    "email": "chauhan.prarabdh@gmail.com",
+                    "mobile": "9860415773"
+                }
+            ]
+        }
+    ]
+}
