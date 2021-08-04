@@ -1,0 +1,47 @@
+ [
+	{
+		"number": "IG-790",
+		"airline": "Indigo",
+		"fare": "6000",
+		"route": {
+			"source": "Pune",
+			"destination": "Srinagar",
+			"stops": [
+				{
+					"stop_number": 1,
+					"city": "Indore"
+				},
+				{
+					"stop_number": 2,
+					"city": "Delhi"
+				}
+			]
+		},
+		"schedule": {
+			"departure_date": "2021-08-15",
+			"departure_time": "09:25 hrs",
+			"arrival_date": "2021-08-15",
+			"arrival_time": "11:25 hrs",
+			"duration": "02:00 hrs"
+		},
+		"passengers": []
+	},
+	{
+		"number": "SJ-443",
+		"airline": "SpiceJet",
+		"fare": "5500",
+		"route": {
+			"source": "Hyderabad",
+			"destination": "Chennai",
+			"stops": []
+		},
+		"schedule": {
+			"departure_date": "2021-09-05",
+			"departure_time": "09:00 hrs",
+			"arrival_date": "2021-09-05",
+			"arrival_time": "10:30 hrs",
+			"duration": "01:30 hrs"
+		},
+		"passengers": []
+	}
+]

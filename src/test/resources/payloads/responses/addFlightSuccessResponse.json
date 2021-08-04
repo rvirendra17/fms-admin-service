@@ -1,0 +1,7 @@
+{
+    "result": {
+        "status": "Success",
+        "code": 201,
+        "message": "All flights added successfully"
+    }
+}
