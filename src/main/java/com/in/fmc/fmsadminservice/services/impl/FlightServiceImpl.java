@@ -14,8 +14,10 @@ import com.in.fmc.fmsadminservice.constants.Constants;
 import com.in.fmc.fmsadminservice.constants.ErrorConstants;
 import com.in.fmc.fmsadminservice.entities.Flight;
 import com.in.fmc.fmsadminservice.exceptions.FlightsExistException;
+import com.in.fmc.fmsadminservice.models.Response;
 import com.in.fmc.fmsadminservice.repositories.FlightRepository;
 import com.in.fmc.fmsadminservice.services.FlightService;
+import com.in.fmc.fmsadminservice.utils.CommonUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +33,10 @@ public class FlightServiceImpl implements FlightService {
 	private FlightRepository flightRepository;
 
 	@Override
-	public ResponseEntity<String> addFlights(Collection<Flight> flights) {
+	public ResponseEntity<Response> addFlights(Collection<Flight> flights) {
+
+		Response response;
+		HttpStatus httpStatus = HttpStatus.CREATED;
 
 		List<Flight> existingFlights = getExistingFlights(flights);
 		if (existingFlights != null && existingFlights.size() > 0) {
@@ -44,8 +49,10 @@ public class FlightServiceImpl implements FlightService {
 			if (flightsToAdd != null && flightsToAdd.size() > 0) {
 
 				saveFlights(flightsToAdd);
-				return new ResponseEntity<String>(Constants.FLIGHTS_ADDED_WITH_WARNING + existingFlightNumbers,
-						HttpStatus.CREATED);
+
+				response = CommonUtils.getResponse(Constants.FLIGHTS_ADDED_WITH_WARNING + existingFlightNumbers,
+						httpStatus);
+				return new ResponseEntity<Response>(response, httpStatus);
 			} else if (flightsToAdd != null && flightsToAdd.isEmpty()) {
 
 				throw new FlightsExistException(ErrorConstants.FLIGHTS_EXIST_EXCEPTION_MSG);
@@ -54,7 +61,8 @@ public class FlightServiceImpl implements FlightService {
 		}
 
 		saveFlights(flights);
-		return new ResponseEntity<String>(Constants.FLIGHTS_ADDED_SUCCESSFULLY, HttpStatus.CREATED);
+		response = CommonUtils.getResponse(Constants.FLIGHTS_ADDED_SUCCESSFULLY, httpStatus);
+		return new ResponseEntity<Response>(response, httpStatus);
 	}
 
 	private List<Flight> getExistingFlights(Collection<Flight> flights) {
@@ -100,4 +108,5 @@ public class FlightServiceImpl implements FlightService {
 
 		flightRepository.saveAll(flights);
 	}
+
 }
