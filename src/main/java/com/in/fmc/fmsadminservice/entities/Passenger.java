@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -25,5 +26,6 @@ public class Passenger {
 
 	@ManyToOne
 	@JoinColumn(name = "fk_flightId", nullable = false)
+	@ToString.Exclude
 	private Flight flight;
 }

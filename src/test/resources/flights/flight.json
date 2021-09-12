@@ -1,0 +1,27 @@
+{
+	"flightNumber": "I5-744",
+	"flightAirlineName": "AirAsia",
+	"flightFare": "6000",
+	"flightRoute": {
+		"flightSource": "Pune",
+		"flightDestination": "Srinagar",
+		"flightStops": [
+			{
+				"stopNumber": 1,
+				"stopCity": "Indore"
+			},
+			{
+				"stopNumber": 2,
+				"stopCity": "Delhi"
+			}
+		]
+	},
+	"flightSchedule": {
+		"flightDepartureDate": "2021-08-15",
+		"flightDepartureTime": "09:25 hrs",
+		"flightArrivalDate": "2021-08-15",
+		"flightArrivalTime": "11:25 hrs",
+		"flightDuration": "02:00 hrs"
+	},
+	"passengers": []
+}

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.in.fmc.fmsadminservice.mappers.FlightMapper;
 import com.in.fmc.fmsadminservice.models.FlightData;
+import com.in.fmc.fmsadminservice.models.Response;
 import com.in.fmc.fmsadminservice.services.FlightService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class FlightController {
 	private FlightMapper flightMapper;
 
 	@PostMapping("/flights")
-	public ResponseEntity<String> addFlights(@Valid @RequestBody FlightData flightData) {
+	public ResponseEntity<Response> addFlights(@Valid @RequestBody FlightData flightData) {
 
 		log.info("In addFlights()");
 		return flightService.addFlights(flightMapper.mapToFlights(flightData.getFlightDtos()));

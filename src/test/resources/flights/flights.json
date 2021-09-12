@@ -1,0 +1,52 @@
+[
+	{
+		"flightNumber": "I5-744",
+		"flightAirlineName": "AirAsia",
+		"flightFare": "6000",
+		"flightRoute": {
+			"flightSource": "Pune",
+			"flightDestination": "Srinagar",
+			"flightStops": [
+				{
+					"stopNumber": 1,
+					"stopCity": "Indore"
+				},
+				{
+					"stopNumber": 2,
+					"stopCity": "Delhi"
+				}
+			]
+		},
+		"flightSchedule": {
+			"flightDepartureDate": "2021-08-15",
+			"flightDepartureTime": "09:25 hrs",
+			"flightArrivalDate": "2021-08-15",
+			"flightArrivalTime": "11:25 hrs",
+			"flightDuration": "02:00 hrs"
+		},
+		"passengers": []
+	},
+	{
+		"flightNumber": "IG-172",
+		"flightAirlineName": "Indigo",
+		"flightFare": "9000",
+		"flightRoute": {
+			"flightSource": "Nagpur",
+			"flightDestination": "Banglore",
+			"flightStops": [
+				{
+					"stopNumber": 1,
+					"stopCity": "Hyderabad"
+				}
+			]
+		},
+		"flightSchedule": {
+			"flightDepartureDate": "2021-08-31",
+			"flightDepartureTime": "18:25 hrs",
+			"flightArrivalDate": "2021-08-31",
+			"flightArrivalTime": "19:55 hrs",
+			"flightDuration": "01:30 hrs"
+		},
+		"passengers": []
+	}
+]
