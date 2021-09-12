@@ -37,28 +37,44 @@ public class FlightServiceImplTest {
 
 	private static ObjectMapper objectMapper;
 
+	private static Flight flight;
+	private static Collection<Flight> flightsToAdd;
 	private static Collection<Flight> flights;
 	private static Response successResponse;
+	private static Response successWithWarningResponse;
 
 	@InjectMocks
 	private FlightServiceImpl flightServiceImpl = new FlightServiceImpl();
 
+	private static String flightPath;
 	private static String flightsPath;
+	private static String flightsToAddPath;
 	private static String successResponsePath;
+	private static String successWithWarnigResponsePath;
 
 	@BeforeClass
 	public static void init() throws JsonParseException, JsonMappingException, IOException {
+
+		flightPath = "classpath:flights/flight.json";
 		flightsPath = "classpath:flights/flights.json";
+		flightsToAddPath = "classpath:flights/flightsToAdd.json";
 		successResponsePath = "classpath:responses/addFlightSuccessResponse.json";
+		successWithWarnigResponsePath = "classpath:responses/addFlightSuccessWithWarningResponse.json";
+
 		resourceLoader = new DefaultResourceLoader();
 		objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
+		flight = objectMapper.readValue(resourceLoader.getResource(flightPath).getFile(), Flight.class);
+		flightsToAdd = objectMapper.readValue(resourceLoader.getResource(flightsToAddPath).getFile(),
+				new TypeReference<Collection<Flight>>() {
+				});
 		flights = objectMapper.readValue(resourceLoader.getResource(flightsPath).getFile(),
 				new TypeReference<Collection<Flight>>() {
 				});
-
 		successResponse = objectMapper.readValue(resourceLoader.getResource(successResponsePath).getFile(),
 				Response.class);
+		successWithWarningResponse = objectMapper
+				.readValue(resourceLoader.getResource(successWithWarnigResponsePath).getFile(), Response.class);
 	}
 
 	@Test
@@ -73,6 +89,21 @@ public class FlightServiceImplTest {
 		when(flightRepository.saveAll(flights)).thenReturn(flights);
 
 		ResponseEntity<Response> expectedResponseEntity = new ResponseEntity<Response>(successResponse,
+				HttpStatus.CREATED);
+
+		assertEquals(expectedResponseEntity, flightServiceImpl.addFlights(flights));
+
+	}
+
+	@Test
+	public void addFlightsSuccessWithWarningTest() {
+
+		when(flightRepository.findByFlightNumberAndFlightScheduleFlightDepartureDate(flight.getFlightNumber(),
+				flight.getFlightSchedule().getFlightDepartureDate())).thenReturn(flight);
+
+		when(flightRepository.saveAll(flightsToAdd)).thenReturn(flightsToAdd);
+
+		ResponseEntity<Response> expectedResponseEntity = new ResponseEntity<Response>(successWithWarningResponse,
 				HttpStatus.CREATED);
 
 		assertEquals(expectedResponseEntity, flightServiceImpl.addFlights(flights));

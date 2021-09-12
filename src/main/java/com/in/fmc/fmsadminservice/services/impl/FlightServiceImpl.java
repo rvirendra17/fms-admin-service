@@ -41,12 +41,16 @@ public class FlightServiceImpl implements FlightService {
 		List<Flight> existingFlights = getExistingFlights(flights);
 		if (existingFlights != null && existingFlights.size() > 0) {
 
+			log.info("Existing Flights - {}", existingFlights);
+
 			String existingFlightNumbers = existingFlights.stream().map(flight -> flight.getFlightNumber()).sorted()
 					.collect(Collectors.joining(", "));
 
 			List<Flight> flightsToAdd = getFlightsToAdd(existingFlights, flights);
 
 			if (flightsToAdd != null && flightsToAdd.size() > 0) {
+
+				log.info("Flights to add - {}", flightsToAdd);
 
 				saveFlights(flightsToAdd);
 
@@ -107,6 +111,7 @@ public class FlightServiceImpl implements FlightService {
 		}
 
 		flightRepository.saveAll(flights);
+		log.info("Flights saved - {}", flights);
 	}
 
 }
