@@ -1,0 +1,7 @@
+{
+	"result": {
+		"status": "Success",
+		"code": 201,
+		"message": "Success with warning: few flights already exist. Flights added except - I5-744"
+	}
+}

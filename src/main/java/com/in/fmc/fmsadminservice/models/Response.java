@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErrorResponse {
+public class Response {
 
-	@JsonProperty(value = "error")
-	private ErrorResource errorResource;
-
+	@JsonProperty(value="result")
+	private ResponseData responseData;
 }

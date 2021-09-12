@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(name = "FLIGHT_SCHEDULE")
@@ -26,6 +27,7 @@ public class FlightSchedule {
 
 	@OneToOne
 	@JoinColumn(nullable = false, name = "fk_flightId")
+	@ToString.Exclude
 	private Flight flight;
 
 }

@@ -1,0 +1,25 @@
+[
+	{
+		"flightNumber": "IG-172",
+		"flightAirlineName": "Indigo",
+		"flightFare": "9000",
+		"flightRoute": {
+			"flightSource": "Nagpur",
+			"flightDestination": "Banglore",
+			"flightStops": [
+				{
+					"stopNumber": 1,
+					"stopCity": "Hyderabad"
+				}
+			]
+		},
+		"flightSchedule": {
+			"flightDepartureDate": "2021-08-31",
+			"flightDepartureTime": "18:25 hrs",
+			"flightArrivalDate": "2021-08-31",
+			"flightArrivalTime": "19:55 hrs",
+			"flightDuration": "01:30 hrs"
+		},
+		"passengers": []
+	}
+]
