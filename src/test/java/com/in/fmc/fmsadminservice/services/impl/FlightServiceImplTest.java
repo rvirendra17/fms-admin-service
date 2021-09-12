@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,17 +26,14 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.in.fmc.fmsadminservice.entities.Flight;
+import com.in.fmc.fmsadminservice.exceptions.FlightsExistException;
 import com.in.fmc.fmsadminservice.models.Response;
 import com.in.fmc.fmsadminservice.repositories.FlightRepository;
 
 @RunWith(value = SpringRunner.class)
 public class FlightServiceImplTest {
 
-	@Mock
-	private FlightRepository flightRepository;
-
 	private static ResourceLoader resourceLoader;
-
 	private static ObjectMapper objectMapper;
 
 	private static Flight flight;
@@ -43,14 +42,17 @@ public class FlightServiceImplTest {
 	private static Response successResponse;
 	private static Response successWithWarningResponse;
 
-	@InjectMocks
-	private FlightServiceImpl flightServiceImpl = new FlightServiceImpl();
-
 	private static String flightPath;
 	private static String flightsPath;
 	private static String flightsToAddPath;
 	private static String successResponsePath;
 	private static String successWithWarnigResponsePath;
+
+	@Mock
+	private FlightRepository flightRepository;
+
+	@InjectMocks
+	private FlightServiceImpl flightServiceImpl = new FlightServiceImpl();
 
 	@BeforeClass
 	public static void init() throws JsonParseException, JsonMappingException, IOException {
@@ -80,10 +82,6 @@ public class FlightServiceImplTest {
 	@Test
 	public void addFlightsSuccessTest() throws IOException {
 
-		System.out.println("Flights " + flights);
-		System.out.println("Resource " + resourceLoader.getResource(flightsPath));
-		System.out.println("Flights Object - " + resourceLoader.getResource(flightsPath).getFile());
-		System.out.println("SuccessResponse " + successResponse);
 		when(flightRepository.findByFlightNumberAndFlightScheduleFlightDepartureDate(Mockito.anyString(),
 				Mockito.anyString())).thenReturn(null);
 		when(flightRepository.saveAll(flights)).thenReturn(flights);
@@ -109,4 +107,16 @@ public class FlightServiceImplTest {
 		assertEquals(expectedResponseEntity, flightServiceImpl.addFlights(flights));
 
 	}
+
+	@Test(expected = FlightsExistException.class)
+	public void addFlights_FlightsExistExceptionTest() {
+
+		when(flightRepository.findByFlightNumberAndFlightScheduleFlightDepartureDate(Mockito.anyString(),
+				Mockito.anyString())).thenReturn(flight);
+		List<Flight> flights1 = new ArrayList<>();
+		flights1.add(flight);
+		flightServiceImpl.addFlights(flights1);
+
+	}
+
 }
