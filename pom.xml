@@ -43,7 +43,7 @@
 				<sonar.login>4a54e1cd82765a56d48823eca9fa2832cc5efd17</sonar.login>
 				<!-- <sonar.login>admin</sonar.login> <sonar.password>Sonarquebewala1$</sonar.password> -->
 				<sonar.exclusions>**/*.js,**/antlr4/**/*.java,**/entities/**,**/models/**</sonar.exclusions>
-				<sonar.coverage.exclusions>**/controllers/**,**/models/**,**/configuraions/**,**/constants/**,**/exceptionhandler/**,**/logging/**,**/repositories/**,**/dtos/**</sonar.coverage.exclusions>
+				<sonar.coverage.exclusions>**/controllers/**,**/entities/**,**/models/**,**/configuraions/**,**/constants/**,**/exceptionhandler/**,**/logging/**,**/repositories/**,**/dtos/**</sonar.coverage.exclusions>
 			</properties>
 
 			<build>

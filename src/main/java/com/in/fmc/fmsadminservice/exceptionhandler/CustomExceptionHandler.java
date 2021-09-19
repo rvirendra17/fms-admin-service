@@ -40,9 +40,9 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 		String errorCsv = errors.stream().sorted().collect(Collectors.joining(", "));
 
-		status = HttpStatus.BAD_REQUEST;
+		HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
 
-		return getErrorResponse(ValidationConstants.INVALID_MISSING_PARAMETERS_MSG + errorCsv, status, request);
+		return getErrorResponse(ValidationConstants.INVALID_MISSING_PARAMETERS_MSG + errorCsv, httpStatus, request);
 	}
 
 	@ExceptionHandler(FlightsExistException.class)
