@@ -1,6 +1,7 @@
 package com.in.fmc.fmsadminservice.services;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.springframework.http.ResponseEntity;
 
@@ -11,4 +12,5 @@ public interface FlightService {
 
 	ResponseEntity<Response> addFlights(Collection<Flight> flights);
 
+	ResponseEntity<Response> getFlights(Set<String> flightNumbers);
 }
