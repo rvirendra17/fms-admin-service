@@ -32,4 +32,6 @@ public interface FlightDtoMapper {
 	List<FlightStopDto> mapToFlightStopDtos(List<FlightStop> flightStops);
 	
 	List<PassengerDto> mapToPassengerDtos(List<Passenger> passengers);
+	
+	List<FlightDto> mapToFlightDtos(List<Flight> flights);
 }

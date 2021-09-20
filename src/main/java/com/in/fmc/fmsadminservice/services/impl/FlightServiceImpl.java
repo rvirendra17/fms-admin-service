@@ -1,6 +1,7 @@
 package com.in.fmc.fmsadminservice.services.impl;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,6 +15,9 @@ import com.in.fmc.fmsadminservice.constants.Constants;
 import com.in.fmc.fmsadminservice.constants.ErrorConstants;
 import com.in.fmc.fmsadminservice.entities.Flight;
 import com.in.fmc.fmsadminservice.exceptions.FlightsExistException;
+import com.in.fmc.fmsadminservice.exceptions.FlightsNotAddedException;
+import com.in.fmc.fmsadminservice.exceptions.FlightsNotFoundException;
+import com.in.fmc.fmsadminservice.mappers.FlightDtoMapper;
 import com.in.fmc.fmsadminservice.models.Response;
 import com.in.fmc.fmsadminservice.repositories.FlightRepository;
 import com.in.fmc.fmsadminservice.services.FlightService;
@@ -31,6 +35,9 @@ public class FlightServiceImpl implements FlightService {
 
 	@Autowired
 	private FlightRepository flightRepository;
+
+	@Autowired
+	private FlightDtoMapper flightDtoMapper;
 
 	@Override
 	public ResponseEntity<Response> addFlights(Collection<Flight> flights) {
@@ -55,7 +62,7 @@ public class FlightServiceImpl implements FlightService {
 				saveFlights(flightsToAdd);
 
 				response = CommonUtils.getResponse(Constants.FLIGHTS_ADDED_WITH_WARNING + existingFlightNumbers,
-						httpStatus);
+						httpStatus, null);
 				return new ResponseEntity<Response>(response, httpStatus);
 			} else if (flightsToAdd != null && flightsToAdd.isEmpty()) {
 
@@ -65,7 +72,7 @@ public class FlightServiceImpl implements FlightService {
 		}
 
 		saveFlights(flights);
-		response = CommonUtils.getResponse(Constants.FLIGHTS_ADDED_SUCCESSFULLY, httpStatus);
+		response = CommonUtils.getResponse(Constants.FLIGHTS_ADDED_SUCCESSFULLY, httpStatus, null);
 		return new ResponseEntity<Response>(response, httpStatus);
 	}
 
@@ -91,7 +98,7 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	/**
-	 * @author -Virendra
+	 * @author -ADMIN
 	 * @param - List<Flights>
 	 * @Details - Sets parent entities to children entities and save all entities to
 	 *          DB
@@ -114,4 +121,60 @@ public class FlightServiceImpl implements FlightService {
 		log.info("Flights saved - {}", flights);
 	}
 
+	@Override
+	public ResponseEntity<Response> getFlights(Set<String> flightNumbers) {
+
+		List<Flight> flights = (List<Flight>) flightRepository.findAll();
+		Response response = null;
+		HttpStatus httpStatus = HttpStatus.OK;
+
+		if (flightNumbers != null && flightNumbers.isEmpty()) {
+
+			if (flights != null && !flights.isEmpty()) {
+				response = CommonUtils.getResponse("Flights found successfully", httpStatus,
+						flightDtoMapper.mapToFlightDtos(flights));
+				return new ResponseEntity<Response>(response, httpStatus);
+
+			}
+			throw new FlightsNotAddedException("No flights added to the system");
+
+		} else if (flightNumbers != null && !flightNumbers.isEmpty() && flightNumbers.size() > 0) {
+
+			List<Flight> foundFlights = flights.stream()
+					.filter(flight -> flightNumbers.contains(flight.getFlightNumber())).collect(Collectors.toList());
+
+			if (flightNumbers.size() > foundFlights.size() && foundFlights.size() > 0) {
+
+				log.info("Flight number size: {}, Found flights size: {}", flightNumbers.size(), foundFlights.size());
+
+				Set<String> foundFlightNumbers = new HashSet<>();
+
+				foundFlights.stream().forEach(flight -> foundFlightNumbers.add(flight.getFlightNumber()));
+
+				log.info("Found flight numbers- {}", foundFlightNumbers);
+
+				String notFoundFlightNumbers = flightNumbers.stream()
+						.filter(number -> !foundFlightNumbers.contains(number)).collect(Collectors.joining(", "));
+
+				response = CommonUtils.getResponse(
+						"Success with warning : flights found except -" + notFoundFlightNumbers, httpStatus,
+						flightDtoMapper.mapToFlightDtos(foundFlights));
+
+				return new ResponseEntity<Response>(response, httpStatus);
+			} else if (flightNumbers.size() == foundFlights.size()) {
+
+				log.info("Flight number size: {}, Found flights size: {}", flightNumbers.size(), foundFlights.size());
+				response = CommonUtils.getResponse("Flights found successfully", httpStatus,
+						flightDtoMapper.mapToFlightDtos(foundFlights));
+				return new ResponseEntity<Response>(response, httpStatus);
+			}
+
+			else if (foundFlights.isEmpty()) {
+
+				throw new FlightsNotFoundException("Flights not found");
+			}
+
+		}
+		return null;
+	}
 }
