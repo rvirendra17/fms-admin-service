@@ -17,6 +17,8 @@ import com.in.fmc.fmsadminservice.constants.ErrorConstants;
 import com.in.fmc.fmsadminservice.constants.ValidationConstants;
 import com.in.fmc.fmsadminservice.controllers.FlightController;
 import com.in.fmc.fmsadminservice.exceptions.FlightsExistException;
+import com.in.fmc.fmsadminservice.exceptions.FlightsNotAddedException;
+import com.in.fmc.fmsadminservice.exceptions.FlightsNotFoundException;
 import com.in.fmc.fmsadminservice.models.ErrorResource;
 import com.in.fmc.fmsadminservice.models.ErrorResponse;
 
@@ -50,6 +52,13 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 		log.error("Error occured - {}", fex);
 		return getErrorResponse(fex.getMessage(), HttpStatus.NOT_ACCEPTABLE, webRequest);
+	}
+
+	@ExceptionHandler(value = { FlightsNotFoundException.class, FlightsNotAddedException.class })
+	private ResponseEntity<Object> handleFlightsNotFound_AddedExceptions(RuntimeException ex, WebRequest webRequest) {
+
+		log.error("Error occured - {}", ex);
+		return getErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST, webRequest);
 	}
 
 	private ResponseEntity<Object> getErrorResponse(String message, HttpStatus httpStatus, WebRequest webRequest) {
