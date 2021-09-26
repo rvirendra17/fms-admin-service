@@ -127,7 +127,7 @@ public class FlightServiceImpl implements FlightService {
 		Response response = null;
 		HttpStatus httpStatus = HttpStatus.OK;
 
-		if (flights == null || flights.isEmpty()) {
+		if (flights.isEmpty()) {
 			throw new FlightsNotAddedException(ErrorConstants.FLIGHTS_NOT_ADDED_EXCEPTION_MSG);
 
 		} else if (flightNumbers.isEmpty() && !flights.isEmpty()) {
