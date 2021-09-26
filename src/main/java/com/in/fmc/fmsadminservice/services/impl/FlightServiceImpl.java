@@ -1,7 +1,6 @@
 package com.in.fmc.fmsadminservice.services.impl;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -128,28 +127,27 @@ public class FlightServiceImpl implements FlightService {
 		Response response = null;
 		HttpStatus httpStatus = HttpStatus.OK;
 
-		if (flightNumbers != null && flightNumbers.isEmpty()) {
+		if (flights.isEmpty()) {
+			throw new FlightsNotAddedException(ErrorConstants.FLIGHTS_NOT_ADDED_EXCEPTION_MSG);
 
-			if (flights != null && !flights.isEmpty()) {
-				response = CommonUtils.getResponse("Flights found successfully", httpStatus,
-						flightDtoMapper.mapToFlightDtos(flights));
-				return new ResponseEntity<Response>(response, httpStatus);
+		} else if (flightNumbers.isEmpty() && !flights.isEmpty()) {
 
-			}
-			throw new FlightsNotAddedException("No flights added to the system");
+			response = CommonUtils.getResponse(Constants.FLIGHTS_FOUND_SUCCESSFULLY, httpStatus,
+					flightDtoMapper.mapToFlightDtos(flights));
+			return new ResponseEntity<Response>(response, httpStatus);
 
-		} else if (flightNumbers != null && !flightNumbers.isEmpty() && flightNumbers.size() > 0) {
+		} else if (!flightNumbers.isEmpty()) {
 
 			List<Flight> foundFlights = flights.stream()
 					.filter(flight -> flightNumbers.contains(flight.getFlightNumber())).collect(Collectors.toList());
 
-			if (flightNumbers.size() > foundFlights.size() && foundFlights.size() > 0) {
+			if (flightNumbers.size() != foundFlights.size() && foundFlights.size() > 0) {
 
-				log.info("Flight number size: {}, Found flights size: {}", flightNumbers.size(), foundFlights.size());
+				log.info("Flight numbers set size: {}, Found flights list size: {}", flightNumbers.size(),
+						foundFlights.size());
 
-				Set<String> foundFlightNumbers = new HashSet<>();
-
-				foundFlights.stream().forEach(flight -> foundFlightNumbers.add(flight.getFlightNumber()));
+				Set<String> foundFlightNumbers = foundFlights.stream().map(flight -> flight.getFlightNumber())
+						.collect(Collectors.toSet());
 
 				log.info("Found flight numbers- {}", foundFlightNumbers);
 
@@ -157,21 +155,22 @@ public class FlightServiceImpl implements FlightService {
 						.filter(number -> !foundFlightNumbers.contains(number)).collect(Collectors.joining(", "));
 
 				response = CommonUtils.getResponse(
-						"Success with warning : flights found except -" + notFoundFlightNumbers, httpStatus,
+						Constants.FLIGHTS_FOUND_SUCCESSFULLY_WITH_WARNING + notFoundFlightNumbers, httpStatus,
 						flightDtoMapper.mapToFlightDtos(foundFlights));
 
 				return new ResponseEntity<Response>(response, httpStatus);
+
 			} else if (flightNumbers.size() == foundFlights.size()) {
 
 				log.info("Flight number size: {}, Found flights size: {}", flightNumbers.size(), foundFlights.size());
-				response = CommonUtils.getResponse("Flights found successfully", httpStatus,
+
+				response = CommonUtils.getResponse(Constants.FLIGHTS_FOUND_SUCCESSFULLY, httpStatus,
 						flightDtoMapper.mapToFlightDtos(foundFlights));
+
 				return new ResponseEntity<Response>(response, httpStatus);
-			}
+			} else if (foundFlights.isEmpty()) {
 
-			else if (foundFlights.isEmpty()) {
-
-				throw new FlightsNotFoundException("Flights not found");
+				throw new FlightsNotFoundException(ErrorConstants.FLIGHTS_NOT_FOUND_EXCEPTION_MSG);
 			}
 
 		}
